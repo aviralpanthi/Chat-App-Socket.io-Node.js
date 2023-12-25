@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+ <div class="main">
+  <button class="joinroom" onclick="joinroom()">Join Group Chat</button>
+  <div class="textarea">
+    <div class="nav">
+      <div><i class="ri-arrow-left-line"></i></div>
+      <div class="icon" ><i class="ri-vidicon-fill"></i> <i class="ri-phone-fill"></i><i class="ri-more-2-fill"></i> </div>
+    </div>
+    <div class="messages">
+      <div class="msg incomingmessage">
+        <div class="username">username</div>
+        <div class="data">heyy</div>
+      </div>
+      <div class="msg outgoingmessage">
+        <div class="username">username</div>
+        <div class="data">hello</div>
+      </div>
+    </div>
+    <div class="inputs">
+      <h1><i class="ri-emoji-sticker-line"></i></h1>
+      <h1><i class="ri-add-line"></i></h1>
+      <input type="text" placeholder="">
+      <button onclick="sendmessage()" ><i class="ri-send-plane-2-fill"></i></button>
+    </div>
+  </div>
+ </div>
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+      var socket = io();
+
+      let roomname = null
+
+      const username = prompt('User name')
+       console.log(username);
+
+      function joinroom(){
+         roomname = prompt('Room name') 
+        console.log(roomname);
+        socket.emit('joinroom',roomname)
+      }
+
+      function incomingmessage(message){
+        document.querySelector('.messages').innerHTML += `<div class = 'msg incomingmessage'>
+          <div class="username">${message.username}</div>
+          <div class="data">${message.msg}</div>
+          </div>`
+      }
+
+      function outgoingmessage(message){
+        document.querySelector('.messages').innerHTML += `<div class = 'msg outgoingmessage'>
+          <div class="username">${message.username}</div>
+          <div class="data">${message.msg}</div>
+          </div>`
+      }
+
+      function sendmessage(){
+        const msg = document.querySelector('input').value
+        
+        const messagepacket = {
+          username: username,
+          msg: msg,
+          roomname:roomname,
+        }
+
+        outgoingmessage(messagepacket)
+
+        socket.emit('sony',messagepacket)
+      }
+
+      socket.on('max', msg=>{
+        incomingmessage(msg)
+      })
+
+  </script>
+</body>
+</html>

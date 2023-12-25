@@ -1,0 +1,122 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body{
+  height: 100%;width: 100%;
+  
+}
+
+.main{
+  height: 100vh;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url(https://img.freepik.com/premium-photo/3d-rendering-bunch-square-badges-with-whatsapp-logo-green-background_284880-352.jpg?w=1060);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav{
+  width: 100%;
+  height:8vh;
+  background-color: #D9FDD3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-left: 10px;
+  font-size: 1.5vw;
+  color: #64737C;
+}
+.nav i{
+  margin-right: 25px;
+}
+.textarea{
+  background-color:#d1fdc9;
+  height: 80vh;
+  width: 30vw;
+  
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+.messages{
+  height: 63vh;
+  width: 100%;
+  padding: 15px;
+  overflow-y: scroll;
+  background-image: url(https://w0.peakpx.com/wallpaper/515/934/HD-wallpaper-whatsapp-abstract-green-pattern-texture.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.messages::-webkit-scrollbar{
+  display: none;
+}
+.inputs input{
+  height: 6vh;
+    margin:11px 5px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+.inputs button{
+  height: 6vh;
+  border: none;
+  font-size: 2vw;
+  margin: 11px 5px;
+  background-color: transparent;
+  color: #64737C;
+  
+}
+.inputs h1{
+  font-weight: 100;
+  margin: 11px .4vw;
+  color: #64737C;
+}
+.messages .msg{
+  background-color: #D9FDD3;
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: fit-content;
+}
+
+.outgoingmessage{
+  margin-left: auto;
+  margin-bottom: 1vw;
+}
+
+
+.incomingmessage{
+  
+  margin-bottom: 1vw;
+}
+
+.msg .username {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.inputs{
+  width: 100%;
+  display: flex;
+}
+
+.inputs input{
+  width: 100%;
+}
+.joinroom{
+  padding: .8vw 5vw;
+  position: absolute;
+  z-index: 111111111111111111111;
+  top: 2%;
+  background-color: #D9FDD3;
+  border: none;
+  border-radius: 10px;
+}

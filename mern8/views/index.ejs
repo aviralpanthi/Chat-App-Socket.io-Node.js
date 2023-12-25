@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+
+    #main {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .conversationArea {
+      height: 70vh;
+      width: 60vw;
+      background-color: red;
+    }
+
+    .messages {
+      height: calc(100% - 32px);
+      width: 100%;
+      background-color: green;
+      padding: 7px;
+    }
+
+    .messages .msg {
+      background-color: #fff;
+      border-radius: 5px;
+      width: fit-content;
+      padding: 5px 10px;
+    }
+
+    .outGoingMessage {
+      margin-left: auto;
+    }
+
+    .msg .username {
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    .inputs {
+      width: 100%;
+      display: flex;
+    }
+
+    .inputs input {
+      width: 100%;
+    }
+
+    .inputs button {
+      /* width: 7%; */
+    }
+
+    .inputs input,
+    .inputs button {
+      height: 32px;
+      padding: 0.5rem 1rem;
+    }
+
+    #joinRoom {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <button id="joinRoom" onclick="joinRoom()">
+      join new room
+    </button>
+    <div class="conversationArea">
+      <div class="messages">
+
+      </div>
+      <div class="inputs">
+        <input type="text" placeholder="Enter message">
+        <button onclick="sendMessage()">send</button>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    let roomName = null
+
+    const username = prompt('Enter your name')
+    console.log(username)
+
+    function joinRoom() {
+      roomName = prompt("Enter room name")
+      console.log(roomName)
+      socket.emit('joinRoom', roomName)
+    }
+
+    /* 
+    {
+      username:shubham,
+      msg:hello bhai kese ho
+    }
+     */
+
+
+
+    function incomingMessage(message) {
+      document.querySelector('.messages').innerHTML += ` <div class="msg incomingMessage">
+          <div class="username">${message.username}</div>
+          <div class="data"> ${message.msg} </div>
+        </div> `
+    }
+
+    function outGoingMessage(message) {
+      document.querySelector('.messages').innerHTML += ` <div class="msg outGoingMessage">
+          <div class="username">${message.username}</div>
+          <div class="data"> ${message.msg} </div>
+        </div> `
+    }
+
+    function sendMessage() {
+      const msg = document.querySelector('input').value
+
+      const messagePacket = {
+        username: username,
+        msg: msg,
+        roomName: roomName,
+      }
+
+      outGoingMessage(messagePacket)
+
+
+      socket.emit('sony', messagePacket)
+
+    }
+
+    socket.on('max', msg => {
+      incomingMessage(msg)
+    })
+
+    
+  </script>
+</body>
+
+</html>
